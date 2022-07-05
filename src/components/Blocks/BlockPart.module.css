@@ -1,0 +1,13 @@
+.block{
+    margin-left: 3rem;
+    width: fit-content;
+    border-radius: 15px;
+    flex:1;
+}
+
+.block.mainblock{
+    top: 0;
+    position: absolute;
+    flex: 1;
+}
+
