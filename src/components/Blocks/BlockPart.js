@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
 import styles from './BlockPart.module.css';
 import NewWorkerForm from '../NewWorker/NewWorkerForm';
 
 import Card from '../UI/Card';
+import Button from '../UI/Button';
+
 
 const DUMMY_WORKER = [
     {
@@ -13,6 +16,10 @@ const DUMMY_WORKER = [
         id: '0.1',
     }
 ];
+
+const WorkerForm = props => {
+    return <NewWorkerForm onCancel={props.hideForm} onSubmit={props.submitFormHandler} />;
+};
 
 function BlockPart(props) {
 
@@ -46,28 +53,34 @@ function BlockPart(props) {
 
 
     return (
-        <Card>
-            <div className={`${styles.block} ${props.isKid && styles['main_block']}`}>
+        <React.Fragment>
+            {showForm && ReactDOM.createPortal(<WorkerForm hideForm={hideForm} submitFormHandler={submitFormHandler} />, document.getElementById('overlay-root'))}
+            <Card className={`${styles.block} ${!props.isKid && styles.mainblock}`} >
                 <div>
+                    <Button className={styles['edit_btn']} >✎</Button>
+                    <Button className={styles['delete_btn']}>🗑</Button>
+                </div>
+                <div className={styles['worker_data']} >
                     <div>
                         <div>
                             <img src={props.worker.profile} />
-                            <label> {props.worker.name} </label>
+                            <label > {props.worker.name} </label>
                         </div>
                         <div>
-                            <p>{props.worker.position}</p>
+                            <p>{props.worker.job}</p>
                         </div>
                     </div>
                     <div>
-                        {!showForm && <button onClick={showTheForm} >+</button>}
+                        {!showForm && <button className={styles['add_btn']} onClick={showTheForm} >+</button>}
                     </div>
-                    {showForm && <NewWorkerForm onCancel={hideForm} onSubmit={submitFormHandler} />}
                 </div>
                 {showChild && workers.map((worker) => {
                     return <BlockPart isKid={true} worker={worker} key={worker.id} />;
                 })}
-            </div>
-        </Card>
+
+            </Card>
+        </React.Fragment>
+
     );
 }
 

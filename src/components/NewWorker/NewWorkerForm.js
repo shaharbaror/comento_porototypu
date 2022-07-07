@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
+import classes from './NewWorkerForm.module.css';
+
+import BackDrop from '../UI/BackDrop';
 import Card from '../UI/Card';
+
+import Button from '../UI/Button';
 
 function NewWorkerForm(props) {
 
@@ -30,30 +35,37 @@ function NewWorkerForm(props) {
 
     function onSubmitForm(event) {
         event.preventDefault();
-        props.onSubmit(userInput);
+        if (userInput.name.length === 0) {
+
+        } else {
+            props.onSubmit(userInput);
+        }
 
     }
 
 
     return (
-        <Card>
-            <form onSubmit={onSubmitForm}>
-                <div>
-                    <div>
-                        <label>Name:</label>
-                        <input type="text" onChange={onNameChange} />
+        <React.Fragment>
+            <BackDrop />
+            <Card className={classes.body}>
+                <form onSubmit={onSubmitForm}>
+                    <div className={classes.text}>
+                        <div>
+                            <label>Full Name:</label>
+                            <input type="text" onChange={onNameChange} />
+                        </div>
+                        <div>
+                            <label>Job Title:</label>
+                            <input type="text" onChange={onJobChange} />
+                        </div>
                     </div>
-                    <div>
-                        <label>Job:</label>
-                        <input type="text" onChange={onJobChange} />
+                    <div className={classes.action} >
+                        <Button type="button" onClick={props.onCancel} >Cancel</Button>
+                        <Button type='submit' >Submit</Button>
                     </div>
-                </div>
-                <div>
-                    <button type="button" onClick={props.onCancel} >Cancel</button>
-                    <button type='submit' >Submit</button>
-                </div>
-            </form>
-        </Card>
+                </form>
+            </Card>
+        </React.Fragment>
     );
 }
 

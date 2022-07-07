@@ -1,0 +1,10 @@
+.button {
+    font: inherit;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+  }
+  
+  
+  .button:focus {
+    outline: none;
+  }
