@@ -7,6 +7,8 @@ import NewWorkerForm from '../NewWorker/NewWorkerForm';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 
+import Trash from '../Image/trash.png';
+
 
 const DUMMY_WORKER = [
     {
@@ -58,7 +60,7 @@ function BlockPart(props) {
             <Card className={`${styles.block} ${!props.isKid && styles.mainblock}`} >
                 <div>
                     <Button className={styles['edit_btn']} >✎</Button>
-                    <Button className={styles['delete_btn']}>🗑</Button>
+                    <Button className={styles['delete_btn']}><img src={Trash} /></Button>
                 </div>
                 <div className={styles['worker_data']} >
                     <div>
